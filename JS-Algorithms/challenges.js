@@ -13,7 +13,15 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  let secs = seconds % 60;
+  let mins = Math.floor(seconds / 60) % 60;
+  let hours = Math.floor(seconds / 3600);
+
+  secs < 10 ? secs = `0${secs}` : secs;
+  mins < 10 ? mins = `0${mins}` : mins;
+  hours < 10 ? hours = `0${hours}` : mins;
+
+  return `${hours}:${mins}:${secs}`;
 };
 
 readableTime(458);
@@ -41,7 +49,16 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  let positiveIndex = Math.abs(index);
+
+  let result = [];
+  
+  for (let i = 0; i < COUNTRY_NAMES.length; i++) {
+    let country = COUNTRY_NAMES[(positiveIndex + i) % COUNTRY_NAMES.length];
+    result.push(country);
+  }
+
+  return result;
 };
 
 circularArray(2);
@@ -70,7 +87,15 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  let sum = 0n;
+
+  for (let i = 1; i <= number; i++){
+    let pow = BigInt(i) ** BigInt(i);
+    sum += pow;
+  }
+
+  const str = sum.toString();
+  return str.slice(-lastDigits);
 };
 
 ownPower(10, 3);
@@ -95,7 +120,20 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  let factorial = 1n;
+  for (let i = 1n; i <= BigInt(n); i++) {
+    factorial = factorial * i;
+  }
+  
+  let digits = factorial.toString().split('');
+  let sum = 0;
+  for(let i = 0; i < digits.length; i++){
+    let digit = Number(digits[i]);
+
+    sum += digit;
+  }
+
+  return sum;
 };
 
 digitSum(10);
@@ -118,7 +156,19 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+  let num1 = 0;
+  let num2 = 1;
+  let sum = 0;
+  let index = 1;
+
+  while (sum.toString().length !== n) {
+    sum = num1 + num2;
+    num1 = num2;
+    num2 = sum;
+    index += 1;
+  }
+  
+  return index;
 };
 
 fibIndex(3);
